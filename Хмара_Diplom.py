@@ -28,75 +28,88 @@ except:
     nlp = None
 
 # Define constants
-TIRE_ATTRIBUTES = {    'зчеплення_сухий_асфальт': ['зчеплення сух', 'зчепл асфальт', 'тяга на сухому', 'сцепл асфальт', 'тягов на сух', 'зчепл на сух'],
-    'зчеплення_волога_дорога': ['зчеплення волог', 'зчепл мокр', 'тяга на мокр', 'зчепл на волог', 'сцепл дощ', 'тягов на мокр', 'аквапланування', 'аквапланування'],
-    'зчеплення_сніг': ['зчеплення сніг', 'зчепл сніж', 'тяга на сніг', 'сцепл зим', 'тягов взим', 'сніж дорог'],
-    'зчеплення_лід': ['зчеплення лід', 'зчепл лід', 'тяга на льод', 'сцепл лід', 'тягов на льод', 'ожелед'],
-    'гальмування': ['гальмів', 'гальм', 'гальмівн', 'гальмув', 'зупинка', 'зупин', 'гальмівний шлях'],
-    'зносостійкість_протектор': ['знос протектор', 'зносост протектор', 'довговічн протектор', 'міцн протектор', 'протектор стійк', 'протектор зношу'],
-    'зносостійкість_загальна': ['знос', 'зносост', 'довговічн', 'міцн', 'зношув', 'ресурс', 'служб', 'тривал', 'термін служб', 'кілометраж'],
-    'протектор_дизайн': ['протектор дизайн', 'малюнок протектор', 'протектор малюн', 'рисунок протектор', 'протектор форм'],
-    'шум_рівень': ['шум', 'гучн', 'гуркіт', 'гуркот', 'шумн', 'децибел'],
-    'шум_характер': ['шум характер', 'шум тип', 'звук рівномірн', 'шум рівномірн', 'гудін', 'свист', 'шелест'],
-    'комфорт_їзда': ['комфорт їзд', 'м\'як їзд', 'жорстк їзд', 'плавн хід', 'комфорт під час їзд', 'комфортн їзд'],
-    'комфорт_вібрації': ['вібрац', 'тряск', 'трясе', 'вібрує', 'трясіння', 'коливан'],
-    'ціна_якість': ['ціна якість', 'співвідношення цін', 'співвіднош варт', 'варт за гроші', 'за свої гроші', 'цін/як'],
-    'ціна': ['ціна', 'цін', 'варт', 'дорого', 'дешев', 'бюджет', 'доступн', 'коштує', 'коштував', 'дорогі'],
-    'волога_дорога_загальне': ['волог', 'мокр', 'дощ', 'калюж', 'після дощу'],
-    'сніг_глибокий': ['глибок сніг', 'заметіл', 'кучугур', 'снігов полон', 'сніжн замет'],
-    'сніг_укатаний': ['укатан сніг', 'утрамбован сніг', 'спресован сніг', 'наїждж'],
-    'лід_ожеледь': ['лід', 'льод', 'ожелед', 'обмерзл', 'слизьк'],
-    'паливна_ефективність': ['палив', 'економ палив', 'витрат палив', 'ефектив витрат', 'економічн'],
-    'економічність': ['економ', 'заощадж', 'витрат', 'економн', 'бережлив'],
-    'управління_маневреність': ['управлін', 'керован', 'маневр', 'маневрен', 'поворот', 'віраж'],
-    'управління_стабільність': ['стабільн', 'стійк', 'курсов стійк', 'прямолінійн', 'стабіл рух'],
-    'управління_точність': ['точн керув', 'точн управл', 'керм чутлив', 'відгук на кермо', 'реакц на поворот'],
-    'сезонність_літо': ['літн', 'літо', 'спек', 'спекотн', 'висок температур'],
-    'сезонність_зима': ['зимов', 'зим', 'зимн', 'холод', 'низьк температур', 'мороз'],
-    'сезонність_всесезонність': ['всесезон', 'універсал', 'і зим і літ', 'всепогодн'],
-    'міцність_боковини': ['боков', 'бічн', 'боковин', 'боковин міцн', 'бічн стінк', 'стінк'],
-    'стійкість_до_пошкоджень': ['пошкодж', 'проколи', 'порізи', 'стійк до пошкодж', 'удар', 'камін', 'скло'],
-    'посадка_кріплення': ['посадк', 'кріпл', 'монтаж', 'балансуван', 'дисбаланс'],
-    'поведінка_навантаженні': ['навантаж', 'вантаж', 'багаж', 'під вагою', 'важк'],
-    'якість_виробництва': ['якіст', 'виробн', 'збірк', 'виготовл', 'завод'],
-    'дизайн_зовнішній': ['дизайн', 'вигляд', 'естетик', 'естетичн', 'зовнішн'],
-    'бренд_довіра': ['бренд', 'виробник', 'фірм', 'репутац', 'марк', 'довір'],
-    'країна_виробництва': ['країн', 'виробн в', 'зроблен в', 'походжен', 'вироблен'],
-    'гарантія': ['гарант', 'повернен', 'заміна', 'гарантійн', 'сервіс'],
+TIRE_ATTRIBUTES = {
+    'зчеплення_сухий_асфальт': ['зчеплення сух', 'зчепл асфальт', 'тяга на сухому', 'сцепл асфальт', 'тягов на сух', 'зчепл на сух', 'сух асфальт', 'сухе покритт', 'зчепл сухому'],
+    'зчеплення_волога_дорога': ['зчеплення волог', 'зчепл мокр', 'тяга на мокр', 'зчепл на волог', 'сцепл дощ', 'тягов на мокр', 'аквапланування', 'мокр асфальт', 'волог покритт', 'дощов погод', 'слизьк дорог'],
+    'зчеплення_сніг': ['зчеплення сніг', 'зчепл сніж', 'тяга на сніг', 'сцепл зим', 'тягов взим', 'сніж дорог', 'снігов покрив', 'засніжен дорог'],
+    'зчеплення_лід': ['зчеплення лід', 'зчепл лід', 'тяга на льод', 'сцепл лід', 'тягов на льод', 'ожелед', 'льодян покрив', 'заморожен дорог'],
+    'гальмування': ['гальмів', 'гальм', 'гальмівн', 'гальмув', 'зупинка', 'зупин', 'гальмівний шлях', 'зупинн шлях', 'гальмівн властив', 'ефектив гальмув'],
+    'зносостійкість_протектор': ['знос протектор', 'зносост протектор', 'довговічн протектор', 'міцн протектор', 'протектор стійк', 'протектор зношу', 'глибин протектор', 'стиран протектор'],
+    'зносостійкість_загальна': ['знос', 'зносост', 'довговічн', 'міцн', 'зношув', 'ресурс', 'служб', 'тривал', 'термін служб', 'кілометраж', 'пробіг', 'витривал'],
+    'протектор_дизайн': ['протектор дизайн', 'малюнок протектор', 'протектор малюн', 'рисунок протектор', 'протектор форм', 'візерунок', 'канавк'],
+    'шум_рівень': ['шум', 'гучн', 'гуркіт', 'гуркот', 'шумн', 'децибел', 'звук', 'тих', 'безшумн'],
+    'шум_характер': ['шум характер', 'шум тип', 'звук рівномірн', 'шум рівномірн', 'гудін', 'свист', 'шелест', 'гул'],
+    'комфорт_їзда': ['комфорт їзд', 'м\'як їзд', 'жорстк їзд', 'плавн хід', 'комфорт під час їзд', 'комфортн їзд', 'м\'якіст ходу', 'плавніст'],
+    'комфорт_вібрації': ['вібрац', 'тряск', 'трясе', 'вібрує', 'трясіння', 'коливан', 'тремтін'],
+    'ціна_якість': ['ціна якість', 'співвідношення цін', 'співвіднош варт', 'варт за гроші', 'за свої гроші', 'цін/як', 'ціна/якіст'],
+    'ціна': ['ціна', 'цін', 'варт', 'дорого', 'дешев', 'бюджет', 'доступн', 'коштує', 'коштував', 'дорогі', 'вартіст'],
+    'волога_дорога_загальне': ['волог', 'мокр', 'дощ', 'калюж', 'після дощу', 'мокр покритт'],
+    'сніг_глибокий': ['глибок сніг', 'заметіл', 'кучугур', 'снігов полон', 'сніжн замет', 'високий сніг'],
+    'сніг_укатаний': ['укатан сніг', 'утрамбован сніг', 'спресован сніг', 'наїждж', 'твердий сніг'],
+    'лід_ожеледь': ['лід', 'льод', 'ожелед', 'обмерзл', 'слизьк', 'льодян'],
+    'паливна_ефективність': ['палив', 'економ палив', 'витрат палив', 'ефектив витрат', 'економічн', 'опір коченню'],
+    'економічність': ['економ', 'заощадж', 'витрат', 'економн', 'бережлив', 'ощадлив'],
+    'управління_маневреність': ['управлін', 'керован', 'маневр', 'маневрен', 'поворот', 'віраж', 'маневреніст'],
+    'управління_стабільність': ['стабільн', 'стійк', 'курсов стійк', 'прямолінійн', 'стабіл рух', 'тримання курсу'],
+    'управління_точність': ['точн керув', 'точн управл', 'керм чутлив', 'відгук на кермо', 'реакц на поворот', 'чітк керуван'],
+    'сезонність_літо': ['літн', 'літо', 'спек', 'спекотн', 'висок температур', 'тепл', 'жарк'],
+    'сезонність_зима': ['зимов', 'зим', 'зимн', 'холод', 'низьк температур', 'мороз', 'зимн умов'],
+    'сезонність_всесезонність': ['всесезон', 'універсал', 'і зим і літ', 'всепогодн', 'цілорічн'],
+    'міцність_боковини': ['боков', 'бічн', 'боковин', 'боковин міцн', 'бічн стінк', 'стінк', 'міцність боків'],
+    'стійкість_до_пошкоджень': ['пошкодж', 'проколи', 'порізи', 'стійк до пошкодж', 'удар', 'камін', 'скло', 'міцніст'],
+    'посадка_кріплення': ['посадк', 'кріпл', 'монтаж', 'балансуван', 'дисбаланс', 'встановлен'],
+    'поведінка_навантаженні': ['навантаж', 'вантаж', 'багаж', 'під вагою', 'важк', 'під навантажен'],
+    'якість_виробництва': ['якіст', 'виробн', 'збірк', 'виготовл', 'завод', 'якіст продукц'],
+    'дизайн_зовнішній': ['дизайн', 'вигляд', 'естетик', 'естетичн', 'зовнішн', 'краса'],
+    'бренд_довіра': ['бренд', 'виробник', 'фірм', 'репутац', 'марк', 'довір', 'надійн виробник'],
+    'країна_виробництва': ['країн', 'виробн в', 'зроблен в', 'походжен', 'вироблен', 'країна походжен'],
+    'гарантія': ['гарант', 'повернен', 'заміна', 'гарантійн', 'сервіс', 'гарантійн терм'],
     'ціна_доставки': ['доставк', 'пересил', 'транспорт', 'вартіст доставк', 'ціна доставк'],
-    'шиповані': ['шип', 'шипован', 'шиповк', 'шипи', 'з шипами'],
-    'бездоріжжя': ['бездоріжж', 'оффроуд', 'грунт', 'грунтівк', 'польов', 'ґрунтов', 'пісок', 'болот', 'багн']}  # Dictionary mapping attribute names to keywords
-POSITIVE_WORDS = ['добре', 'добрий', 'чудовий', 'відмінний', 'хороший', 'надійний', 'якісний', 
-                'відмінно', 'прекрасний', 'задоволений', 'рекомендую', 'вартий', 'люблю', 
-                'варті', 'приємний', 'впевнений', 'комфортний', 'плавний', 'тихий', 'економний',
+    'шиповані': ['шип', 'шипован', 'шиповк', 'шипи', 'з шипами', 'шипи металев'],
+    'бездоріжжя': ['бездоріжж', 'оффроуд', 'грунт', 'грунтівк', 'польов', 'ґрунтов', 'пісок', 'болот', 'багн', 'бездоріжн умов']
+}
+POSITIVE_WORDS = [
+    # Базові позитивні слова
+    'добре', 'добрий', 'чудовий', 'відмінний', 'хороший', 'надійний', 'якісний', 
+    'відмінно', 'прекрасний', 'задоволений', 'рекомендую', 'вартий', 'люблю', 
+    'варті', 'приємний', 'впевнений', 'комфортний', 'плавний', 'тихий', 'економний',
     
-                    # Деталізована позитивна лексика
-                    'бездоганний', 'неперевершений', 'фантастичний', 'ідеальний', 'супер', 'задоволення',
-                    'неймовірний', 'вражаючий', 'перевершив очікування', 'перевершує', 'кращий',
-                    'варто', 'вигідний', 'раджу', 'рекомендував би', 'топовий', 'першокласний',
-                    'взяв би знову', 'купив би знову', 'рекомендую', 'зручний', 'витривалий',
-                    'безпечний', 'тривалий', 'ефективний', 'продуктивний', 'потужний', 'вартісний',
-                    'витрачені гроші', 'не шкодую', 'задоволений вибором', 'оптимальний', 'чіткий',
-                    'швидкий', 'легкий', 'приємно здивований', 'радий', 'неперевершено', 'досконалий',
-                    'збалансований', 'стабільний', 'надійно', 'безшумний', 'м\'яко', 'легко',
-                    'чудово тримає', 'блискуче справляється', 'витримує', 'стійкий', 'точний',
-                    'передбачуваний', 'впевнено', 'вражаюче', 'захоплюючий', 'захоплює', 'вражає']   # List of positive words for sentiment analysis
-NEGATIVE_WORDS = [# Загальна негативна лексика
-                    'погано', 'поганий', 'жахливий', 'гірший', 'розчарований', 'проблема', 'незадоволений',
-                    'недолік', 'недостатній', 'шумний', 'дорогий', 'неякісний', 'слабкий', 'ламається', 
-                    'непрактичний', 'ненадійний', 'зношується', 'зносився', 'розчарував', 'дефект', 'шкодую',
-                    
-                    # Деталізована негативна лексика
-                    'огидний', 'жалкую', 'марно витрачені', 'даремно', 'провал', 'помилка', 'не рекомендую',
-                    'не варто', 'не радив би', 'пожалів', 'розчарування', 'неприємно здивований', 'недоліки',
-                    'брак', 'бракований', 'неякісно', 'зіпсований', 'не працює', 'проблемний', 'поганої якості',
-                    'відвертий непотріб', 'гірше нікуди', 'неприпустимий', 'неприйнятний', 'підвів', 
-                    'не витримує', 'не справляється', 'не відповідає', 'обман', 'розвалюється',
-                    'швидко зношується', 'небезпечний', 'ризикований', 'нестабільний', 'некерований',
-                    'заносить', 'неконтрольований', 'некомфортний', 'жорсткий', 'гучний', 'галасливий',
-                    'дратує', 'втомлює', 'нервує', 'незручний', 'важкий', 'грубий', 'повільний',
-                    'не тримає', 'ковзає', 'сковзає', 'буксує', 'не справляється', 'витратний',
-                    'дорогий', 'переоцінений', 'завищена ціна', 'не вартий', 'не відпрацьовує']   # List of negative words
+    # Додаткові позитивні
+    'бездоганний', 'неперевершений', 'фантастичний', 'ідеальний', 'супер', 'задоволення',
+    'неймовірний', 'вражаючий', 'перевершив очікування', 'перевершує', 'кращий',
+    'варто', 'вигідний', 'раджу', 'рекомендував би', 'топовий', 'першокласний',
+    'взяв би знову', 'купив би знову', 'зручний', 'витривалий',
+    'безпечний', 'тривалий', 'ефективний', 'продуктивний', 'потужний', 'вартісний',
+    'витрачені гроші', 'не шкодую', 'задоволений вибором', 'оптимальний', 'чіткий',
+    'швидкий', 'легкий', 'приємно здивований', 'радий', 'неперевершено', 'досконалий',
+    'збалансований', 'стабільний', 'надійно', 'безшумний', 'м\'яко', 'легко',
+    'чудово тримає', 'блискуче справляється', 'витримує', 'стійкий', 'точний',
+    'передбачуваний', 'впевнено', 'вражаюче', 'захоплюючий', 'захоплює', 'вражає',
+    
+    # Слова з контексту шин
+    'тримає', 'справляється', 'працює', 'служить', 'витримав', 'дотримав', 'достойний'
+]
+NEGATIVE_WORDS = [
+    # Базові негативні
+    'погано', 'поганий', 'жахливий', 'гірший', 'розчарований', 'проблема', 'незадоволений',
+    'недолік', 'недостатній', 'шумний', 'дорогий', 'неякісний', 'слабкий', 'ламається', 
+    'непрактичний', 'ненадійний', 'зношується', 'зносився', 'розчарував', 'дефект', 'шкодую',
+    
+    # Детальніші негативні
+    'огидний', 'жалкую', 'марно витрачені', 'даремно', 'провал', 'помилка', 'не рекомендую',
+    'не варто', 'не радив би', 'пожалів', 'розчарування', 'неприємно здивований', 'недоліки',
+    'брак', 'бракований', 'неякісно', 'зіпсований', 'не працює', 'проблемний', 'поганої якості',
+    'відвертий непотріб', 'гірше нікуди', 'неприпустимий', 'неприйнятний', 'підвів', 
+    'не витримує', 'не справляється', 'не відповідає', 'обман', 'розвалюється',
+    'швидко зношується', 'небезпечний', 'ризикований', 'нестабільний', 'некерований',
+    'заносить', 'неконтрольований', 'некомфортний', 'жорсткий', 'гучний', 'галасливий',
+    'дратує', 'втомлює', 'нервує', 'незручний', 'важкий', 'грубий', 'повільний',
+    'не тримає', 'ковзає', 'сковзає', 'буксує', 'не справляється', 'витратний',
+    'дорогий', 'переоцінений', 'завищена ціна', 'не вартий', 'не відпрацьовує',
+    
+    # Контекстуальні негативні для шин
+    'слизький', 'ковзкий', 'нестійкий', 'непередбачуваний', 'аварійний'
+]
 NEGATIONS = [
                     'не', 'ні', 'ані', 'ніколи', 'нізащо', 'нічого', 'жодного', 'жодної', 
                     'без', 'відсутній', 'немає', 'нема', 'бракує', 'ніякого', 'ніяк'
@@ -147,22 +160,7 @@ class EnhancedTireAnalysisApp:
         self.setup_event_handlers()
 
         # Try to find the data file in the current directory
-        possible_paths = [
-            "відгуки.csv", 
-            os.path.join(os.path.dirname(os.path.abspath(__file__)), "відгуки.csv"),
-            r"C:\Users\User\Desktop\відгуки.csv"
-        ]
-        
-        for path in possible_paths:
-            if os.path.exists(path):
-                self.file_path = path
-                break
-                
-        # Load file if found, otherwise create test data
-        if self.file_path and os.path.exists(self.file_path):
-            self.load_file()
-        else:
-            self.create_test_data()
+        self.file_path = None
     
     # 1. UTILITY METHODS
     def setup_styles(self):
@@ -299,16 +297,27 @@ class EnhancedTireAnalysisApp:
     
     # 2. TEXT ANALYSIS METHODS
     def custom_word_tokenize(self, text):
-        """Tokenize text for analysis"""
+        """Tokenize text with Ukrainian language support"""
         if not isinstance(text, str):
             return []
         
         # Convert to lowercase first
         text = text.lower()
         
-        # Tokenize by spaces and punctuation
-        tokens = re.findall(r'\b\w+\b', text)
-        return tokens
+        # Ukrainian-specific pattern: includes apostrophe for words like "не'мати"
+        # and hyphen for compound words like "інтернет-магазин"
+        ukrainian_pattern = r"\b[а-яії'`ʼ-]+\b|\b[a-z'`ʼ-]+\b|\b\d+\b"
+        tokens = re.findall(ukrainian_pattern, text)
+        
+        # Filter out single characters and clean tokens
+        cleaned_tokens = []
+        for token in tokens:
+            # Remove leading/trailing punctuation
+            cleaned_token = re.sub(r"^['-]+|['-]+$", "", token)
+            if len(cleaned_token) > 1:  # Keep only words longer than 1 character
+                cleaned_tokens.append(cleaned_token)
+        
+        return cleaned_tokens
     
     def extract_context(self, text, keywords, window_size=5):
         """Extract context around keywords"""
@@ -331,14 +340,11 @@ class EnhancedTireAnalysisApp:
         return contexts
     
     def analyze_sentiment_with_context(self, text):
-        """Analyze sentiment considering context, intensifiers, and diminishers"""
+        """Покращений аналіз сентименту з українською мовою"""
         if not isinstance(text, str) or not text.strip():
             return 0
         
-        # Base sentiment analysis using TextBlob
-        blob_sentiment = TextBlob(text).sentiment.polarity * 0.2  # Reduce TextBlob influence
-        
-        # Count positive and negative words considering context
+        # Використовуємо менше TextBlob, більше власної логіки
         text_lower = text.lower()
         words = self.custom_word_tokenize(text_lower)
         
@@ -347,85 +353,87 @@ class EnhancedTireAnalysisApp:
         intensified = False
         diminished = False
         
-        # Track processed words to avoid duplicate counting
+        # Трекинг для уникнення подвійного рахунку
         processed_positive_words = set()
         processed_negative_words = set()
         
         for i, word in enumerate(words):
-            # Check for negation
+            # Перевірка на заперечення
             if any(neg in word for neg in NEGATIONS):
                 negated = True
                 continue
             
-            # Check for intensifiers
+            # Перевірка на підсилювачі
             if any(intens in word for intens in INTENSIFIERS):
                 intensified = True
-                diminished = False  # Intensifier overrides diminisher
+                diminished = False
                 continue
             
-            # Check for diminishers
+            # Перевірка на зменшувачі
             if any(dim in word for dim in DIMINISHERS):
                 diminished = True
-                intensified = False  # New diminisher overrides previous intensifier
+                intensified = False
                 continue
             
-            # Count positive words
+            # Підрахунок позитивних слів
             positive_match = next((pos for pos in POSITIVE_WORDS if pos in word and pos not in processed_positive_words), None)
             if positive_match:
                 processed_positive_words.add(positive_match)
                 modifier = -1 if negated else 1
                 
-                # Apply intensity modifier
                 if intensified:
-                    modifier *= 1.5
+                    modifier *= 1.8  # Збільшено вплив інтенсифікаторів
                 elif diminished:
-                    modifier *= 0.5
+                    modifier *= 0.4
                     
                 sentiment_score += modifier
                 
-                # Reset modifiers after applying
+                # Скидання модифікаторів
                 negated = False
                 intensified = False
                 diminished = False
             
-            # Count negative words
+            # Підрахунок негативних слів
             negative_match = next((neg for neg in NEGATIVE_WORDS if neg in word and neg not in processed_negative_words), None)
-            if negative_match and not positive_match:  # Avoid double counting
+            if negative_match and not positive_match:
                 processed_negative_words.add(negative_match)
-                modifier = 1 if negated else -1  # Negated negative becomes positive
+                modifier = 1 if negated else -1
                 
-                # Apply intensity modifier
                 if intensified:
-                    modifier *= 1.5
+                    modifier *= 1.8
                 elif diminished:
-                    modifier *= 0.5
+                    modifier *= 0.4
                     
                 sentiment_score += modifier
                 
-                # Reset modifiers after applying
+                # Скидання модифікаторів
                 negated = False
                 intensified = False
                 diminished = False
             
-            # Reset negation after 3 words if not applied
+            # Скидання заперечення після 3 слів
             if negated and i > 0 and (i % 3 == 0):
                 negated = False
                 
-            # Reset intensifiers and diminishers after 2 words if not applied
+            # Скидання інтенсифікаторів після 2 слів
             if (intensified or diminished) and i > 0 and (i % 2 == 0):
                 intensified = False
                 diminished = False
         
-        # Normalize score
+        # Нормалізація з покращеною формулою
         if sentiment_score != 0:
-            normalized_score = sentiment_score / (abs(sentiment_score) + 3)  # +3 for smoothing
+            normalized_score = sentiment_score / (abs(sentiment_score) + 2)  # Зменшено згладжування
         else:
             normalized_score = 0
-            
-        # Combine with TextBlob
-        combined_sentiment = blob_sentiment + normalized_score * 0.8
         
-        # Limit range to [-1, 1]
+        # Мінімальний вплив TextBlob тільки для англійських слів
+        try:
+            blob_sentiment = TextBlob(text).sentiment.polarity * 0.1  # Зменшено вплив
+            combined_sentiment = normalized_score + blob_sentiment
+        except:
+            combined_sentiment = normalized_score
+        
+        # Обмеження діапазону
         return max(min(combined_sentiment, 1), -1)
     
     def extract_attributes(self, text):
@@ -607,76 +615,55 @@ class EnhancedTireAnalysisApp:
             self.load_file()
     
     def load_file(self):
-        """Load and process file (CSV or Excel)"""
+        """Завантаження файлу без генерації тестових даних"""
         try:
             if not self.file_path or not os.path.exists(self.file_path):
                 messagebox.showerror("Помилка", f"Файл не знайдено: {self.file_path}")
-                self.create_test_data()
                 return
-                
-            # Determine file type by extension
+                    
+            # Визначення типу файлу
             file_ext = os.path.splitext(self.file_path)[1].lower()
             
-            # Load file and handle possible errors
-            try:
-                if file_ext == '.csv':
-                    # Try different encodings for CSV
-                    encodings = ['utf-8', 'cp1251', 'iso-8859-1']
-                    
-                    for encoding in encodings:
-                        try:
-                            # More specific approach if needed
-                            try:
-                                self.df = pd.read_csv(self.file_path, encoding=encoding, sep=None, engine='python')
-                            except:
-                                # Try with explicit delimiter and quoting options
-                                self.df = pd.read_csv(self.file_path, encoding=encoding, sep=',', quotechar='"', 
-                                                    doublequote=True, escapechar='\\', engine='python')
-                            break
-                        except UnicodeDecodeError:
-                            continue
-                    else:
-                        messagebox.showerror("Помилка", "Не вдалося розпізнати кодування CSV-файлу")
-                        self.create_test_data()
-                        return
-                else:  # Excel format
-                    self.df = pd.read_excel(self.file_path)
+            if file_ext == '.csv':
+                # Спроба різних кодувань для CSV
+                encodings = ['utf-8', 'cp1251', 'iso-8859-1', 'utf-8-sig']
                 
-                print(f"Файл завантажено успішно. Кількість рядків: {len(self.df)}")
-                print(f"Колонки у файлі: {list(self.df.columns)}")
-                
-                # Check and rename columns if needed
-                self.normalize_columns()
-                
-                # Add ID column if it doesn't exist (needed for sentiment analysis)
-                if 'ID' not in self.df.columns:
-                    self.df['ID'] = range(1, len(self.df) + 1)
-                
-                # Create a fresh filtered dataframe with all data
-                self.filtered_df = self.df.copy()
-                
-                # Perform sentiment analysis on the comments
-                self.analyze_sentiment()
-            except Exception as e:
-                messagebox.showerror("Помилка", f"Помилка читання файлу: {str(e)}")
-                self.create_test_data()
+                for encoding in encodings:
+                    try:
+                        self.df = pd.read_csv(self.file_path, encoding=encoding, sep=None, engine='python')
+                        break
+                    except UnicodeDecodeError:
+                        continue
+                else:
+                    messagebox.showerror("Помилка", "Не вдалося розпізнати кодування CSV-файлу")
+                    return
+            else:  # Excel
+                self.df = pd.read_excel(self.file_path)
+            
+            print(f"Файл завантажено успішно. Кількість рядків: {len(self.df)}")
+            print(f"Колонки у файлі: {list(self.df.columns)}")
+            
+            # Нормалізація колонок
+            self.normalize_columns()
+            
+            # Додання ID якщо відсутній
+            if 'ID' not in self.df.columns:
+                self.df['ID'] = range(1, len(self.df) + 1)
+            
+            # Перевірка обов'язкових колонок
+            if 'Коментар' not in self.df.columns:
+                messagebox.showerror("Помилка", "У файлі відсутня колонка 'Коментар'")
                 return
             
-            # Check for required columns
-            required_columns = ['Коментар']  # Minimum set of columns
-            missing_columns = [col for col in required_columns if col not in self.df.columns]
-            if missing_columns:
-                messagebox.showerror("Помилка", f"У файлі відсутні необхідні колонки: {', '.join(missing_columns)}")
-                self.create_test_data()
-                return
+            # Створення фільтрованого DataFrame
+            self.filtered_df = self.df.copy()
             
-            # Create filters based on data
+            # Аналіз сентиментів
+            self.analyze_sentiment()
+            
+            # Створення фільтрів та оновлення візуалізацій
             self.create_filters()
-            
-            # Update statistics
             self.update_stats()
-            
-            # Generate all visualizations
             self.update_all_visualizations()
             
             messagebox.showinfo("Інформація", f"Файл успішно завантажено: {os.path.basename(self.file_path)}")
@@ -686,10 +673,7 @@ class EnhancedTireAnalysisApp:
             print(f"Деталі помилки: {e}")
             import traceback
             traceback.print_exc()
-            
-            # Create test data in case of any error
-            self.create_test_data()
-    
+
     def create_test_data(self):
         """Create test data for demonstration"""
         messagebox.showinfo("Інформація", "Створюємо тестові дані для демонстрації")
@@ -827,12 +811,13 @@ class EnhancedTireAnalysisApp:
         sentiment_frame = ttk.Frame(wordcloud_options_frame)
         sentiment_frame.pack(fill=tk.X, padx=5, pady=2)
         
+        # ВИПРАВЛЕНІ ЧЕКБОКСИ З ВЗАЄМОВИКЛЮЧНОЮ ЛОГІКОЮ
         # Option for rating-based colors
         color_rating_check = ttk.Checkbutton(
             sentiment_frame, 
             text="Зафарбовувати за оцінками",
             variable=self.color_by_ratings,
-            command=self.update_wordcloud_settings
+            command=self.on_color_rating_changed
         )
         color_rating_check.pack(side=tk.LEFT, padx=5)
         
@@ -841,7 +826,7 @@ class EnhancedTireAnalysisApp:
             sentiment_frame, 
             text="Зафарбовувати за сентиментом",
             variable=self.color_by_sentiment,
-            command=self.update_wordcloud_settings
+            command=self.on_color_sentiment_changed
         )
         color_sentiment_check.pack(side=tk.LEFT, padx=5)
         
@@ -890,12 +875,12 @@ class EnhancedTireAnalysisApp:
         existing_attribute_columns = [col for col in self.df.columns if col.startswith('Атрибут_')]
         
         # Only create attribute filter section if there are potential attributes to filter
-        if existing_attribute_columns or len(self.df) > 0:  # Create attributes section even if no attributes yet
+        if existing_attribute_columns or len(self.df) > 0:
             # Create attribute filter section with a separate scrollable area
             attributes_filter_frame = ttk.LabelFrame(scrollable_frame, text="Фільтрація за атрибутами шин")
             attributes_filter_frame.pack(fill=tk.X, padx=5, pady=5)
             
-            # Group attribute filters by category
+            # Group attribute filters by category (РОЗШИРЕНИЙ СПИСОК)
             attr_groups = {
                 'Зчеплення': ['зчеплення_сухий_асфальт', 'зчеплення_волога_дорога', 'зчеплення_сніг', 'зчеплення_лід', 'волога_дорога_загальне'],
                 'Зносостійкість': ['зносостійкість_протектор', 'зносостійкість_загальна', 'стійкість_до_пошкоджень', 'міцність_боковини'],
@@ -929,7 +914,7 @@ class EnhancedTireAnalysisApp:
             for group_name, attr_list in attr_groups.items():
                 # Check if any attribute in this group exists or can exist
                 group_has_attributes = any(attr in existing_attributes for attr in attr_list)
-                has_data_to_analyze = len(self.df) > 0  # We have rows that could generate attributes
+                has_data_to_analyze = len(self.df) > 0
                 
                 if group_has_attributes or has_data_to_analyze:
                     group_frame = ttk.LabelFrame(attr_scrollable_frame, text=group_name)
@@ -986,7 +971,7 @@ class EnhancedTireAnalysisApp:
         for column in filter_columns:
             if column in self.df.columns:
                 self.create_filter_for_column(column, scrollable_frame)
-
+           
     def create_filter_for_column(self, column, parent_frame):
         # Create frame for filter
         filter_frame = ttk.LabelFrame(parent_frame, text=column)
@@ -1034,37 +1019,41 @@ class EnhancedTireAnalysisApp:
             self.filter_widgets[column] = {"min_scale": min_scale, "max_scale": max_scale}
             
         elif pd.api.types.is_datetime64_dtype(dtype) or column == 'Дата_відгуку':
-            # Date - create fields for selecting date range
-            try:
-                if column == 'Дата_відгуку' and not pd.api.types.is_datetime64_dtype(dtype):
-                    self.df[column] = pd.to_datetime(self.df[column], errors='coerce')
-                    
-                min_date = self.df[column].min()
-                max_date = self.df[column].max()
-                
-                # Convert dates to strings for UI display
-                min_date_str = min_date.strftime('%Y-%m-%d') if not pd.isna(min_date) else ""
-                max_date_str = max_date.strftime('%Y-%m-%d') if not pd.isna(max_date) else ""
-                
-                ttk.Label(filter_frame, text="Початкова дата:").pack(anchor=tk.W)
-                start_date_var = tk.StringVar(value=min_date_str)
-                start_date_entry = ttk.Entry(filter_frame, textvariable=start_date_var)
-                start_date_entry.pack(fill=tk.X, pady=2)
-                
-                ttk.Label(filter_frame, text="Кінцева дата:").pack(anchor=tk.W)
-                end_date_var = tk.StringVar(value=max_date_str)
-                end_date_entry = ttk.Entry(filter_frame, textvariable=end_date_var)
-                end_date_entry.pack(fill=tk.X, pady=2)
-                
-                self.filter_vars[column] = {"type": "date", "start": start_date_var, "end": end_date_var}
-                
-            except Exception as e:
-                # If something went wrong with dates, use text filter
-                ttk.Label(filter_frame, text=f"Помилка формату дати: {str(e)}").pack()
-                text_var = tk.StringVar()
-                entry = ttk.Entry(filter_frame, textvariable=text_var)
-                entry.pack(fill=tk.X)
-                self.filter_vars[column] = {"type": "text", "value": text_var}
+                    # Date - create fields for selecting date range
+                    try:
+                        if column == 'Дата_відгуку' and not pd.api.types.is_datetime64_dtype(dtype):
+                            self.df[column] = pd.to_datetime(self.df[column], errors='coerce')
+                            
+                        min_date = self.df[column].min()
+                        max_date = self.df[column].max()
+                        
+                        # Convert dates to strings for UI display
+                        min_date_str = min_date.strftime('%Y-%m-%d') if not pd.isna(min_date) else ""
+                        max_date_str = max_date.strftime('%Y-%m-%d') if not pd.isna(max_date) else ""
+                        
+                        ttk.Label(filter_frame, text="Початкова дата (залиште порожнім для відключення):").pack(anchor=tk.W)
+                        start_date_var = tk.StringVar(value="")  # Start with empty value
+                        start_date_entry = ttk.Entry(filter_frame, textvariable=start_date_var)
+                        start_date_entry.pack(fill=tk.X, pady=2)
+                        
+                        ttk.Label(filter_frame, text="Кінцева дата (залиште порожнім для відключення):").pack(anchor=tk.W)
+                        end_date_var = tk.StringVar(value="")  # Start with empty value
+                        end_date_entry = ttk.Entry(filter_frame, textvariable=end_date_var)
+                        end_date_entry.pack(fill=tk.X, pady=2)
+                        
+                        # Add helper text
+                        helper_text = f"Доступний діапазон: {min_date_str} - {max_date_str}"
+                        ttk.Label(filter_frame, text=helper_text, font=('Arial', 8), foreground='gray').pack(anchor=tk.W)
+                        
+                        self.filter_vars[column] = {"type": "date", "start": start_date_var, "end": end_date_var}
+                        
+                    except Exception as e:
+                        # If something went wrong with dates, use text filter
+                        ttk.Label(filter_frame, text=f"Помилка формату дати: {str(e)}").pack()
+                        text_var = tk.StringVar()
+                        entry = ttk.Entry(filter_frame, textvariable=text_var)
+                        entry.pack(fill=tk.X)
+                        self.filter_vars[column] = {"type": "text", "value": text_var}
                 
         else:
             # Categorical data - create dropdown or checkboxes
@@ -1113,10 +1102,10 @@ class EnhancedTireAnalysisApp:
         self.root.config(cursor="wait")
         self.root.update()
             
-        # Start with the full dataset
+        # ВАЖЛИВО: Start with a FRESH copy of the full dataset every time
         self.filtered_df = self.df.copy()
         
-        print(f"Starting filter application. Initial data size: {len(self.filtered_df)}")
+        print(f"Starting filter application. Original data size: {len(self.df)}, Initial filter data size: {len(self.filtered_df)}")
         
         # Apply filters sequentially
         for filter_key, filter_info in self.filter_vars.items():
@@ -1138,27 +1127,34 @@ class EnhancedTireAnalysisApp:
                 print(f"Range filter on {filter_key}: {min_val}-{max_val}, rows: {prev_size} -> {len(self.filtered_df)}")
                 
             elif filter_type == "date":
-                # Skip if column doesn't exist
-                if filter_key not in self.df.columns:
-                    continue
-                    
-                try:
-                    start_date_str = filter_info["start"].get().strip()
-                    end_date_str = filter_info["end"].get().strip()
-                    
-                    if start_date_str:
-                        start_date = pd.to_datetime(start_date_str)
-                        prev_size = len(self.filtered_df)
-                        self.filtered_df = self.filtered_df[self.filtered_df[filter_key] >= start_date]
-                        print(f"Date filter (start) on {filter_key}: {start_date_str}, rows: {prev_size} -> {len(self.filtered_df)}")
-                        
-                    if end_date_str:
-                        end_date = pd.to_datetime(end_date_str)
-                        prev_size = len(self.filtered_df)
-                        self.filtered_df = self.filtered_df[self.filtered_df[filter_key] <= end_date]
-                        print(f"Date filter (end) on {filter_key}: {end_date_str}, rows: {prev_size} -> {len(self.filtered_df)}")
-                except Exception as e:
-                    messagebox.showerror("Помилка дати", f"Неправильний формат дати: {str(e)}")
+                            # Skip if column doesn't exist
+                            if filter_key not in self.df.columns:
+                                continue
+                                
+                            try:
+                                start_date_str = filter_info["start"].get().strip()
+                                end_date_str = filter_info["end"].get().strip()
+                                
+                                # Only apply date filters if values are provided
+                                if start_date_str:
+                                    start_date = pd.to_datetime(start_date_str)
+                                    prev_size = len(self.filtered_df)
+                                    self.filtered_df = self.filtered_df[self.filtered_df[filter_key] >= start_date]
+                                    print(f"Date filter (start) on {filter_key}: {start_date_str}, rows: {prev_size} -> {len(self.filtered_df)}")
+                                    
+                                if end_date_str:
+                                    end_date = pd.to_datetime(end_date_str)
+                                    prev_size = len(self.filtered_df)
+                                    self.filtered_df = self.filtered_df[self.filtered_df[filter_key] <= end_date]
+                                    print(f"Date filter (end) on {filter_key}: {end_date_str}, rows: {prev_size} -> {len(self.filtered_df)}")
+                                    
+                                # If both date fields are empty, don't apply any date filtering
+                                if not start_date_str and not end_date_str:
+                                    print(f"Date filter on {filter_key}: skipped (no dates specified)")
+                                    
+                            except Exception as e:
+                                print(f"Error applying date filter for {filter_key}: {e}")
+                                messagebox.showerror("Помилка дати", f"Неправильний формат дати для {filter_key}: {str(e)}")
                     
             elif filter_type == "check":
                 # Skip if column doesn't exist
@@ -1223,10 +1219,10 @@ class EnhancedTireAnalysisApp:
         self.root.config(cursor="wait")
         self.root.update()
             
-        # Restore full dataset
+        # ВАЖЛИВО: Restore full dataset з оригінального df
         self.filtered_df = self.df.copy()
         
-        print(f"Resetting filters. Data size: {len(self.filtered_df)}")
+        print(f"Resetting filters. Original data size: {len(self.df)}, Restored data size: {len(self.filtered_df)}")
         
         # Reset filters to initial values
         for filter_key, filter_info in self.filter_vars.items():
@@ -1274,11 +1270,13 @@ class EnhancedTireAnalysisApp:
                 filter_info["enabled"].set(False)
                 filter_info["min_sentiment"].set(-1.0)
         
-        # Update statistics first
+        # Force update statistics with original data
         self.update_stats()
         
-        # Update all visualizations with filtered data
+        # Force update all visualizations with original data
         self.update_all_visualizations()
+        
+        print(f"Filters reset completed. Current filtered data size: {len(self.filtered_df)}")
         
         # Return to normal cursor
         self.root.config(cursor="")
@@ -1481,10 +1479,16 @@ class EnhancedTireAnalysisApp:
         if self.filtered_df is None:
             return
         
+        # ВАЖЛИВО: Переконуємось що у нас є правильні дані
+        if self.df is None:
+            return
+            
         # Basic statistics
-        total_records = len(self.df) if self.df is not None else 0
+        total_records = len(self.df)
         filtered_records = len(self.filtered_df)
-    
+        
+        print(f"Stats update: total_records = {total_records}, filtered_records = {filtered_records}")
+
         # Rating statistics
         if 'Рейтинг' in self.filtered_df.columns:
             avg_rating = self.filtered_df['Рейтинг'].mean()
@@ -1544,9 +1548,25 @@ class EnhancedTireAnalysisApp:
         self.sentiment_stats_label.config(text=sentiment_stats)
     
     def update_wordcloud_settings(self):
-        """Update word cloud when visualization parameters change"""
+        """Оновлення налаштувань хмари слів з взаємовиключними опціями"""
+        # Перевіряємо, яка кнопка була натиснута останньою
+        if self.color_by_ratings.get() and self.color_by_sentiment.get():
+            # Якщо обидві вибрані, вимикаємо сентимент (пріоритет оцінкам)
+            self.color_by_sentiment.set(False)
+        
         self.generate_wordcloud()
-        self.canvas_wordcloud.draw()
+    
+    def on_color_rating_changed(self):
+        """Обробник зміни чекбокса оцінок"""
+        if self.color_by_ratings.get():
+            self.color_by_sentiment.set(False)
+        self.generate_wordcloud()
+
+    def on_color_sentiment_changed(self):
+        """Обробник зміни чекбокса сентименту"""
+        if self.color_by_sentiment.get():
+            self.color_by_ratings.set(False)
+        self.generate_wordcloud()
     
     def update_all_visualizations(self):
         # Show cursor to indicate processing
